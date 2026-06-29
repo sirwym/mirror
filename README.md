@@ -103,7 +103,7 @@ Checkout self ──▶ Checkout TurboWarp/scratch-gui ──▶ Install Node 22
                                                        ▼
                               ┌────────────────────────┼────────────────────────┐
                               ▼                        ▼                        ▼
-                    Deploy to GitHub Pages    Upload ZIP Artifact    (Manual) Create Release
+                    Deploy to GitHub Pages    Upload ZIP Artifact    (Tag/Manual) Create Release
 ```
 
 ### 触发方式
@@ -112,7 +112,19 @@ Checkout self ──▶ Checkout TurboWarp/scratch-gui ──▶ Install Node 22
 |---------|------|
 | `push` 到 `main` | 构建 + 部署到 GitHub Pages |
 | 每周二 18:52 (UTC) | 自动构建（拉取上游最新代码） |
-| 手动 `workflow_dispatch` | 构建 + 部署 + 创建带 ZIP 的 GitHub Release |
+| **打任意 tag**（如 `v1.0.0`、`build-20260630`） | 构建 + 部署 + 创建带 ZIP 的 GitHub Release，Release tag 即你打的 tag 名 |
+| 手动 `workflow_dispatch` | 构建 + 部署 + 创建带 ZIP 的 GitHub Release，Release tag 自动生成 `build-YYYYMMDDHHMMSS` |
+
+**发布新 Release 的标准流程：**
+
+```bash
+# 1. 在 main 分支上打个 tag
+git tag v1.0.0
+git push origin v1.0.0
+
+# 2. 等待 Actions 跑完（约 5-10 分钟）
+# 3. 在 Releases 页面即可看到 TurboWarp Offline Build v1.0.0
+```
 
 ## 自定义补丁
 

@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    tags:
+      - '*'
   schedule:
     - cron: '52 18 * * 2'
 
@@ -78,16 +80,22 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'workflow_dispatch' # 只有当你手动触发时，才创建 Release 下载包，避免定时任务刷爆 Release
+    # 打 tag 触发或手动触发时才创建 Release，避免 push/定时任务刷爆 Release
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     steps:
     - name: Download ZIP artifact
       uses: actions/download-artifact@v4
       with:
         name: turbowarp-offline-build
-        
+
     - name: Generate Release Tag
       id: generate_tag
-      run: echo "TAG_NAME=build-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+      run: |
+        if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        else
+          echo "TAG_NAME=build-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+        fi
 
     - name: Create Release and Upload Asset
       uses: softprops/action-gh-release@v2
