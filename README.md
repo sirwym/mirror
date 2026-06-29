@@ -1,6 +1,6 @@
 # TurboWarp Editor 构建包仓库
 
-> 本仓库是一个 **离线构建包（Build Package）仓库**，通过 GitHub Actions 周期性构建并打包 [TurboWarp](https://turbowarp.org/) 图形化编辑器的离线产物，供 [LearnHouse](https://github.com/learnhouse-cn/learnhouse) 平台内嵌使用。
+> 本仓库是一个 **离线构建包（Build Package）仓库**，通过 GitHub Actions 周期性构建并打包 [TurboWarp](https://turbowarp.org/) 图形化编辑器的离线产物，供 [LearnHouse](https://github.com/sirwym/learnhouse-cn) 平台内嵌使用。
 
 ## 仓库定位
 
@@ -8,13 +8,13 @@
 |------|------|
 | 名称 | TurboWarp Editor 构建包 |
 | 用途 | 周期性构建可离线运行的 TurboWarp Editor 静态包 |
-| 消费方 | [LearnHouse](https://github.com/learnhouse-cn/learnhouse) `apps/scratch` |
+| 消费方 | [LearnHouse](https://github.com/sirwym/learnhouse-cn) `apps/scratch` |
 | 部署方式 | GitHub Pages + GitHub Actions Artifact + GitHub Release |
 | 输出物 | `scratch-gui/build/` 静态文件 + `turbowarp-build.zip` 离线包 |
 
 ## 为什么需要这个仓库？
 
-[LearnHouse](https://github.com/learnhouse-cn/learnhouse) 是一个面向中小学生（K12 / 3-9 年级）的编程教育 SaaS 平台，平台内的"编程实验室"模块需要嵌入一个**可离线运行、不依赖第三方 CDN** 的图形化 Scratch 编辑器，让学生：
+[LearnHouse](https://github.com/sirwym/learnhouse-cn) 是一个面向中小学生（K12 / 3-9 年级）的编程教育 SaaS 平台，平台内的"编程实验室"模块需要嵌入一个**可离线运行、不依赖第三方 CDN** 的图形化 Scratch 编辑器，让学生：
 
 - 打开 `*.sb3` 模板进行本地练习
 - 自由创作并把作品保存在本地（不上传服务器）
@@ -53,7 +53,7 @@
 # 方式一：直接消费 GitHub Pages 部署
 cd apps/scratch
 bun run download
-# 默认从 https://learnhouse.github.io/scratch-gui/ 镜像下载
+# 默认从 https://sirwym.github.io/mirror/ 镜像下载
 
 # 方式二：消费本仓库的 Release ZIP
 cd apps/scratch
@@ -145,7 +145,7 @@ git push origin v1.0.0
 
 ```bash
 # 1. 克隆本仓库
-git clone https://github.com/<your-org>/mirror.git
+git clone https://github.com/sirwym/mirror.git
 cd mirror
 
 # 2. 克隆上游 scratch-gui
@@ -174,7 +174,7 @@ zip -r ../../turbowarp-build.zip ./*
 cd apps/scratch
 
 # 拉取最新 Release 包
-gh release download --repo <your-org>/mirror --pattern 'turbowarp-build.zip'
+gh release download --repo sirwym/mirror --pattern 'turbowarp-build.zip'
 mv turbowarp-build.zip /tmp/
 
 # 解压到 public/
