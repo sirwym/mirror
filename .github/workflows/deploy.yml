@@ -71,6 +71,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    # tag 触发时只发 Release，不重复部署 Pages（避免 environment 保护规则冲突）
+    if: github.ref == 'refs/heads/main'
     steps:
     - name: Deploy to GitHub Pages
       id: deployment

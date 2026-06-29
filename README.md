@@ -112,7 +112,7 @@ Checkout self ──▶ Checkout TurboWarp/scratch-gui ──▶ Install Node 22
 |---------|------|
 | `push` 到 `main` | 构建 + 部署到 GitHub Pages |
 | 每周二 18:52 (UTC) | 自动构建（拉取上游最新代码） |
-| **打任意 tag**（如 `v1.0.0`、`build-20260630`） | 构建 + 部署 + 创建带 ZIP 的 GitHub Release，Release tag 即你打的 tag 名 |
+| **打任意 tag**（如 `v1.0.0`、`build-20260630`） | 构建 + 创建带 ZIP 的 GitHub Release，Release tag 即你打的 tag 名（不部署 Pages） |
 | 手动 `workflow_dispatch` | 构建 + 部署 + 创建带 ZIP 的 GitHub Release，Release tag 自动生成 `build-YYYYMMDDHHMMSS` |
 
 **发布新 Release 的标准流程：**
